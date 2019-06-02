@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<!--
+  MathJax TeX and LaTeX Support:
+    http://docs.mathjax.org/en/latest/tex.html
+  Color:
+    http://docs.mathjax.org/en/latest/tex.html#color
+
+-->
+
+<head>
+  <title>PLTR June 2019, Gdańsk</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [["$","$"],["\\(","\\)"]],
+        processEscapes: true
+      },
+       "HTML-CSS": {
+        preferredFont: "STIX"
+      },
+      TeX: {
+        extensions: ["color.js", "AMSmath.js", "AMSsymbols.js"]
+      }
+    });
+  </script>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+    </script>
+</head>
+
+<body>
+
+  <script src="javascript/remark-0.14.0.min.js"></script>
+  <script>
+    var slideshow = remark.create({
+      sourceUrl: "index.md",
+      highlightLines: true,
+      highlightSpans: true
+    });
+  </script>
+</body>
+
+</html>

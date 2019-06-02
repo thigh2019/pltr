@@ -1,0 +1,21 @@
+{
+  "name": "pltr_2019",
+  "version": "1.0.0",
+  "description": "slides for PLTR, june 2019",
+  "main": "index.js",
+  "scripts": {
+    "test": "serve"
+  },
+  "keywords": [
+    "MRI",
+    "Dixon",
+    "NIfTI",
+    "morphology"
+  ],
+  "author": "Włodek Bzyl",
+  "license": "ISC",
+  "devDependencies": {
+    "remark": "^10.0.1",
+    "serve": "^11.0.0"
+  }
+}
