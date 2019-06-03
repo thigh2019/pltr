@@ -18,7 +18,7 @@
 * automatyczne oddzielenie mięśni uda z obrazu MR
   (.part[moduł 1] [thigh])
 * .important[precyzyjnego oznaczania] zawartości
-  tłuszczu wewnątrzmięśniowego
+  tłuszczu wewnątrzmięśniowego<br>
   (.part[moduł 2])
 
 ---
