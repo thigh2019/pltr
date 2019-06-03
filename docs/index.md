@@ -15,9 +15,11 @@
 
 ### Celem jest program do:
 
-* Automatycznej segmentacji mięśni uda (.part[moduł 1] [thigh])
-* .important[Precyzyjnego oznaczania] zawartości
-  tłuszczu wewnątrzmięśniowego (.part[moduł 2])
+* automatyczne oddzielenie mięśni uda z obrazu MR
+  (.part[moduł 1] [thigh])
+* .important[precyzyjnego oznaczania] zawartości
+  tłuszczu wewnątrzmięśniowego
+  (.part[moduł 2])
 
 ---
 
