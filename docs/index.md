@@ -136,7 +136,7 @@ Protokół badania.
 
 ---
 
-## abs(A - B) ≈ 0
+## abs(A - B) = 0
 
 <img src=images/zero.png width=350>
 
@@ -147,7 +147,7 @@ B = sqrt(2) * sqrt(water^2 + fat^2)
 
 ---
 
-## abs(C - 2 * water) ≈ 0
+## abs(C - 2 * water) = 0
 
 <img src=images/zero2.png width=350>
 
@@ -156,6 +156,12 @@ A = (in_phase + out_phase) * (water >= fat)
 B = (in_phase - out_phase) * (water < fat)
 C = A + B
 ```
+
+---
+
+## (in-phase - out-phase) / (2 * in_phase) = fat-fraction
+
+<img src=images/fat_fraction3.png width=400>
 
 ---
 
