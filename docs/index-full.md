@@ -203,7 +203,8 @@ Musimy to zrobić **precyzyjnie** i **powtarzalnie**.
 
 ### 1 warstwa z mięśniami z wyciętą kością udową
 
-Na koniec, w **interesującym nas obszarze** (ROI),
+Na koniec, w **interesującym nas obszarze**,
+wedlug mojej 3 letniej wnuczki .def[**stopy słonia**],
 sumujemy objętości wokseli i udziały tłuszczu w każdym wokselu.
 
 Na slajdzie interesujący nas obszar, to pojedyncza warstwa.
