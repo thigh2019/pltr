@@ -22,25 +22,24 @@
 
 ???
 
-**Nasz cel** to program obliczający zawartość tłuszczu z dużą
-dokładnością. Z literatury wynika, że dokładność **±1%** jest
-możliwa do osiągnięcia.
+**Naszym celem** jest napisanie programu obliczającego zawartość
+tłuszczu z dużą dokładnością.
+Z literatury wynika, że dokładność **±1%** jest możliwa do osiągnięcia.
 
 Taka precyzja, powinna umożliwić monitorowanie **zmian**
 tłuszczu w trakcie ćwiczeń lub w rozwoju choroby.
 
-Niestety, obrazy MR zawierają szum.
-Dlatego obliczenia **zawsze** będą obarczone błędem
-i jeśli chcemy osiąnąć nasz cel, to ten błąd musimy mieć pod kontrolą.
+Niestety, aby osiągnąć taką precyzję, musimy
+kontrolować szum (**Rayleigha**, **Ricciego**, SNR) w obrazach MR.
 
 ----
 
-Program składa się z dwóch modułów.
+Nasz program składa się z dwóch modułów.
 
 Napisanie pierwszego modułu wymagało **pomysłowości**, a także
-trochę **szczęścia**. Na naszych danych zadziałała funkcja
-z pakietu do **Advanced Normalization Tools for R**
-do przetwarzania obrazów mózgu.
+trochę **szczęścia** – na naszych danych zadziałała funkcje
+do przetwarzania obrazów **mózgu**
+z pakietu do **Advanced Normalization Tools for R**.
 
 Moduł drugi korzysta z metody Dixona.
 
@@ -65,8 +64,7 @@ Hu, Li et al.
 
 Intensywność sygnału w obrazach .def[W] i .def[F]
 reprezentuje gęstości protonów pochodzących od
-–CH<sub>2</sub>– i –CH<sub>3</sub>,
-odpowiednio.
+–CH<sub>2</sub>– i –CH<sub>3</sub>, odpowiednio.
 
 <div class="pseudomath">
   <span class=def>signal fat-fraction</span>
@@ -92,10 +90,17 @@ odpowiednio.
 Używamy obrazów Dixona, bo metoda Dixona nie wyklucza
 możliwości napisania takiego programu.
 
-----
+Z obrazów W i F można utworzyć obraz .def[signal fat-fraction],
+licząc, dla każdego woksela osobno, udział sygnału pochodzącego
+od „tłuszczu” do całkowitej intensywności sygnału.
 
-Z przybliżenia w złotej ramce wynika, że ułamek
-**signal fat-fraction** przybliża prawdziwą proporcję tłuszczu w wokselu.
+Z przybliżenia w ramce wynika, że ułamek **signal fat-fraction**
+przybliża prawdziwą proporcję tłuszczu w wokselu.
+
+Dokładność przybliżenia zależy od .def[α] flip angle.
+Im mniejszy kąt (5-10 stopni), tym lepsze przybliżenie.
+
+----
 
 Skrót: PDFF – proton density fat fraction.
 
@@ -104,12 +109,6 @@ Skrót: PDFF – proton density fat fraction.
   w liczniku sygnał pochodzący od „tłuszczu”,
   a w mianowniku mamy całkowity sygnał –
   „tłuszczu + wody”.
-
-**signal fat-fraction** jest liczony dla każdego woksela osobno.
-W ten sposób otrzymujemy obraz **fat-fraction**.
-
-Przybliżenie jest tym lepsze im mniejszy jest flip angle: 5-10 stopni.
-Mniejszy .def[α] flip angle, to większa dokładność przybliżenia TFF.
 
 ---
 
@@ -122,12 +121,15 @@ Mniejszy .def[α] flip angle, to większa dokładność przybliżenia TFF.
 
 ### Dane / Program
 
-Danymi do programu są obrazy 3D: in-phase, water, fat
-i warstwy w których chcemy policzyć tłuszcz (objętość lub proporcję).
+Danymi do naszego programu są obrazy 3D:<br>
+in-phase, water, fat i warstwy / plastry z których
+będziemy liczyć tłuszcz (objętość lub proporcję).
 
-Każdy z obrazów 3D powstał z ok. 10 milionów wokseli / kostek.
+FYI, każdy z obrazów 3D powstał z ok. 10 milionów wokseli / kostek,
+a obraz nogi z 1–2 mln wokseli.
 
-Po prawej stronie widzimy obszar mięśni **w obrazie fat-fraction**.
+Po prawej stronie, pod napisem .def[Program],
+widzimy obszar mięśni **w obrazie fat-fraction**.
 W mięśniach tłuszczu jest mało i dlatego mało co widać.
 
 ---
@@ -183,7 +185,9 @@ Na przykład, skorę usunięto za pomocą erode.
 ### Mięśnie na obrazach in-phase i fat-fraction bez tła
 
 Teraz przyszedł czas na wycięcie mięśni (wykorzystujemy obrazy water i fat)
-i kości udowej (in-phase). Musimy to zrobić dokładnie.
+i **kości udowej** (in-phase).
+
+Musimy to zrobić **precyzyjnie** i **powtarzalnie**.
 
 Uwaga: **k-means and outliers**.
 
@@ -194,11 +198,11 @@ representative as they otherwise would be and thus, the
 SSE (sum of squared errors) will be higher.
 
 Because of this, it is often useful to discover **outliers** and
-eliminate them beforehand. – czego oczywiście nie chcemy robić.
+eliminate them beforehand. **Czego oczywiście nie chcemy robić.**
 
 ---
 
-## 1 warstwa z mięśniami z wyciętą kością udową
+## 1 warstwa z mięśniami z wyciętą kością udową (8%)
 
 <img style="margin-left:-1.25em;" src=images/intramuscular_fat_2d.png width=800>
 
@@ -208,10 +212,12 @@ eliminate them beforehand. – czego oczywiście nie chcemy robić.
 
 Na koniec, w **interesującym nas obszarze** (ROI),
 sumujemy objętości wokseli i udziały tłuszczu w każdym wokselu.
+Na slajdzie ROI, to pojedyncza warstwa. Wyniki są w podpisach pod obrazkami.
 
-Na slajdzie ROI, to pojedyncza warstwa.
-
-Wyniki są w podpisach pod obrazkami.
+**Jaka jest dokładność otrzymanego wyniku?**
+Dokładność zbadano i opisano w literaturze do metody Dixona.
+Konkretnie, dla małych flip angle (kilka stopni) i ilości tłuszczu (10%–20%)
+dokładność powinna wynosić ** ok.1%**.
 
 ---
 
@@ -252,14 +258,14 @@ Protokół badania.
 
 ### Przygotowanie fantomu to bułka z masłem… (?)
 
-Nasz pierwszy, przygotowany na szybko (filp-angle, α = 10°),
-fantom miał zweryfikować dokładność algorytmu.
+Nasz pierwszy, przygotowany na szybko fantom<br>
+(filp-angle, α=10°) miał zweryfikować dokładność algorytmu.
 
-W fantomie było 200 cm^3 tłuszczu (gęsiego, odmierzonego strzykawką)
-i podobna objętość mięśni (chuda cielęcina).
+W fantomie było 200 cm<sup>3</sup> tłuszczu (gęsiego, odmierzonego strzykawką)
+i podobna objętość mięśni (z uda jelenia).
 
 Policzona przez program objętość tłuszczu w tłuszczu, **panel C**,
-to 202.8 cm^3. Wielkość błędu, **1.4%**, zrobiła na nas duże wrażenie.
+to 202.8 cm<sup>3</sup>. Wielkość błędu, **1.4%**, zrobiła na nas duże wrażenie.
 
 ---
 
