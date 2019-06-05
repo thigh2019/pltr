@@ -226,7 +226,7 @@ których użyjemy do potwierdzenia tych rezulatów.
 
 ### .warn[zapraszamy do przejrzenia repozytorium:]
 
-### https://thigh2019.github.io/pltr/
+### https://github.com/thigh2019/pltr
 
 ---
 
