@@ -218,7 +218,7 @@ dokładność powinna wynosić **ok. 1%**.
 Aktualnie, jesteśmy w trakcie przygotowywania fantomów,
 których użyjemy do potwierdzenia tych rezulatów.
 
-Nasz pierwszy przygotowany na szybko fantom, który nazwaliśmy Torcikiem.<br>
+Nasz pierwszy, przygotowany na szybko fantom, który nazwaliśmy Torcikiem.<br>
 **12 + Enter**
 
 ---
@@ -264,15 +264,19 @@ Protokół badania.
 
 ### Przygotowanie fantomu to bułka z masłem… (?)
 
-Miał potwierdzić słuszność naszego podejścia do obliczania tłuszczu.
+Miał potwierdzić słuszność naszego podejścia do obliczania
+objętości **tłuszczu w tłuszczu**.
 
-W fantomie było 200 cm<sup>3</sup> tłuszczu (gęsiego, odmierzonego strzykawką)
+W tym fantomie było 200 cm<sup>3</sup> tłuszczu
+(gęsiego, odmierzonego strzykawką)
 i podobna objętość mięśni (z uda jelenia).
 
-Policzona przez program objętość tłuszczu w tłuszczu, **panel C**,
-to 202.8 cm<sup>3</sup>.
+Policzona przez program objętość tłuszczu w tłuszczu,
+**panel C**, to 202.8 cm<sup>3</sup>.
 
-Tak mały błąd – **1.4%** – zrobił na nas duże wrażenie.
+Tak mały błąd, w liczniu objętości –
+2.8<sup>3</sup>, czyli **1.4%** –
+zrobił na nas duże wrażenie i dał motywację do dalszej pracy.
 
 ---
 
