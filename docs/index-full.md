@@ -4,6 +4,13 @@
 
 ## Gdańsk, 6–8 czerwca 2019
 
+???
+
+Przedstawić się.
+
+Wspólnie z Agnieszką, Piotrem, Arkadiuszem i Beatą tworzymy program
+do oznaczania zawartości tłuszczu wewnątrzmięśniowego z obrazów Dixona.
+
 ---
 
 ## .def[Monitorowanie .solid[zmian] zawartości tłuszczu]
@@ -23,25 +30,31 @@
 ???
 
 **Naszym celem** jest napisanie programu obliczającego zawartość
-tłuszczu z dużą dokładnością.
-Z literatury wynika, że dokładność **±1%** jest możliwa do osiągnięcia.
+tłuszczu z dokładnością **±1%**.
+Z literatury wynika, że taka dokładność jest możliwa do osiągnięcia.
 
-Taka precyzja, powinna umożliwić monitorowanie **zmian**
+Taka dokładność powinna umożliwić monitorowanie **zmian**
 tłuszczu w trakcie ćwiczeń lub w rozwoju choroby.
 
-Niestety, aby osiągnąć taką precyzję, musimy
-kontrolować szum (**Rayleigha**, **Ricciego**, SNR) w obrazach MR.
+<!--
+Niestety, aby osiągnąć taką precyzję, musimy kontrolować szum
+(rozkład **Rayleigh**, **Ricci**; SNR) w obrazach MR.
+-->
 
 ----
 
 Nasz program składa się z dwóch modułów.
 
-Napisanie pierwszego modułu wymagało **pomysłowości**, a także
-trochę **szczęścia** – na naszych danych zadziałała funkcje
-do przetwarzania obrazów **mózgu**
-z pakietu do **Advanced Normalization Tools for R**.
+.def[Pierwszy moduł] został napisany **pod dane**: obrazy MR nóg.
+Napisanie tego modułu wymagało **pomysłowości**, a także trochę **szczęścia**.
+Udało się zaadaptować do naszych celów funkcje z pakietu
+*Advanced Normalization Tools for R*.
 
-Moduł drugi korzysta z metody Dixona.
+.def[Moduł drugi] korzysta z **metody Dixona**.
+
+----
+
+Literatura:
 
 Hines et al.
 [Optimization of Flip Angle to Allow Tradeoffs in T1 Bias and SNR Performance for Fat Quantification](https://cds.ismrm.org/protected/10MProceedings/files/2927_3564.pdf)
@@ -97,18 +110,11 @@ od „tłuszczu” do całkowitej intensywności sygnału.
 Z przybliżenia w ramce wynika, że ułamek **signal fat-fraction**
 przybliża prawdziwą proporcję tłuszczu w wokselu.
 
+ **True fat-fraction** jest zdefiniowane w spectroskopii (spektrometrii)
+ jako **proton density fat fraction** (PDFF).
+
 Dokładność przybliżenia zależy od .def[α] flip angle.
 Im mniejszy kąt (5-10 stopni), tym lepsze przybliżenie.
-
-----
-
-Skrót: PDFF – proton density fat fraction.
-
-* Spectroscopy: **true fat-fraction**.
-* Magnetic Resonance: **signal fat-fraction**:
-  w liczniku sygnał pochodzący od „tłuszczu”,
-  a w mianowniku mamy całkowity sygnał –
-  „tłuszczu + wody”.
 
 ---
 
@@ -122,8 +128,8 @@ Skrót: PDFF – proton density fat fraction.
 ### Dane / Program
 
 Danymi do naszego programu są obrazy 3D:<br>
-in-phase, water, fat i warstwy / plastry z których
-będziemy liczyć tłuszcz (objętość lub proporcję).
+in-phase, water, fat i warstwy (plastry) w których
+będziemy liczyć tłuszcz.
 
 FYI, każdy z obrazów 3D powstał z ok. 10 milionów wokseli / kostek,
 a obraz nogi z 1–2 mln wokseli.
@@ -150,11 +156,9 @@ Niestety, tło obrazu fat-fraction (powietrze + stół),
 zawiera **fałszywy** tłuszcz.
 Powstaje on w wyniku dzielenia szumu przez szum (0 przez 0).
 
-Oczywiście fałszywy tłuszcz musi zostać usunięty.
-I przy okazji przecięta wzdłuż noga.
+Oczywiście fałszywy tłuszcz musi zostać usunięty
+i przy okazji usuwamy przeciętą wzdłuż nogę.
 Na kolejnych obrazach wygumkowano tło i nogę na .background[żółto].
-
-Info: flip angle = 10°
 
 ---
 
@@ -171,7 +175,7 @@ Do zamalowania wokseli w tle wykorzystano
 .solid[morphological processing]. Konkretnie operacje: wymazywanie – .def[erode]
 i *dodawania* wokseli – .def[dilate].
 
-Na przykład, skorę usunięto za pomocą erode.
+Na przykład, skórę usunięto za pomocą erode.
 
 ---
 
@@ -184,25 +188,14 @@ Na przykład, skorę usunięto za pomocą erode.
 
 ### Mięśnie na obrazach in-phase i fat-fraction bez tła
 
-Teraz przyszedł czas na wycięcie mięśni (wykorzystujemy obrazy water i fat)
-i **kości udowej** (in-phase).
+Teraz przyszedł czas na wycięcie obszaru z mięśniami i
+obszaru zajmowanego przez **kość udową**, która zawiera tłuszcz.
 
 Musimy to zrobić **precyzyjnie** i **powtarzalnie**.
 
-Uwaga: **k-means and outliers**.
-
-When the squared error criterion is used, outliers can unduly inﬂuence
-the clusters that are found. In particular, when outliers are present,
-the resulting cluster centroids (prototypes) are typically not as
-representative as they otherwise would be and thus, the
-SSE (sum of squared errors) will be higher.
-
-Because of this, it is often useful to discover **outliers** and
-eliminate them beforehand. **Czego oczywiście nie chcemy robić.**
-
 ---
 
-## 1 warstwa z mięśniami z wyciętą kością udową (8%)
+## 1 warstwa z mięśniami z wyciętą kością udową – 8%
 
 <img style="margin-left:-1.25em;" src=images/intramuscular_fat_2d.png width=800>
 
@@ -212,12 +205,18 @@ eliminate them beforehand. **Czego oczywiście nie chcemy robić.**
 
 Na koniec, w **interesującym nas obszarze** (ROI),
 sumujemy objętości wokseli i udziały tłuszczu w każdym wokselu.
-Na slajdzie ROI, to pojedyncza warstwa. Wyniki są w podpisach pod obrazkami.
 
-**Jaka jest dokładność otrzymanego wyniku?**
-Dokładność zbadano i opisano w literaturze do metody Dixona.
-Konkretnie, dla małych flip angle (kilka stopni) i ilości tłuszczu (10%–20%)
-dokładność powinna wynosić ** ok.1%**.
+Na slajdzie interesujący nas obszar, to pojedyncza warstwa.
+Wyniki są w podpisach pod obrazkami.
+
+W literature do metody Dixona, napisano, że dla małych flip angle
+(kilka stopni) i ilości tłuszczu (do kilkunastu procent)
+dokładność powinna wynosić ** ok. 1%**.
+
+Aktualnie, jesteśmy w trakcie przygotowywania fantomów,
+których użyjemy do potwierdzenia tych rezulatów.
+
+**Nasz pierwszy fantom: 12 + Enter**.
 
 ---
 
