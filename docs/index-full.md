@@ -6,6 +6,9 @@
 
 ???
 
+Dzień dobry!
+
+Nie jestem Agnieszką Sabisz.<br>
 Przedstawić się.
 
 Wspólnie z Agnieszką, Piotrem, Arkadiuszem i Beatą tworzymy program
@@ -154,8 +157,9 @@ Po polsku mówimy, że w życiu nie ma nic za darmo.
 
 Jak widać, tło obrazu fat-fraction, czyli powietrze plus stół,
 zawiera **fałszywy** tłuszcz.
-Powstaje on w wyniku dzielenia szumu przez szum (dzielenia małych liczb).
-Mamy więcej pracy, bo cały fałszywy tłuszcz należy usunąć już teraz.
+Powstaje on w wyniku dzielenia szumu przez szum. Dlatego już
+na początku mamy więcej pracy, bo cały fałszywy tłuszcz
+należy usunąć na tym etapie.
 
 Przy okazji usuwamy też częściowo widoczną, przeciętą wzdłuż nogę.
 Na kolejnych obrazach tło i nogę wygumkowano na .background[żółto].
@@ -204,27 +208,32 @@ Na koniec, w **interesującym nas obszarze**,
 sumujemy objętości wokseli i udziały tłuszczu w każdym wokselu.
 
 Na slajdzie interesujący nas obszar, to jedna warstwa,
-lub wedlug mojej 3 letniej wnuczki .def[**stopy słonia**].
+lub wedlug mojej 3 letniej wnuczki .def[**stopa słonia**].
 Wyniki są w podpisach pod obrazkami.
 
-W literature do metody Dixona, napisano, że dla małych flip angle
+W literaturze do metody Dixona, napisano, że dla małego flip angle
 (kilka stopni) i ilości tłuszczu do kilkunastu procent(?)
-dokładność powinna wynosić ** ok. 1%**.
+dokładność powinna wynosić **ok. 1%**.
 
 Aktualnie, jesteśmy w trakcie przygotowywania fantomów,
 których użyjemy do potwierdzenia tych rezulatów.
 
-**„Torcik” – nasz pierwszy fantom: 12 + Enter**.
+Nasz pierwszy przygotowany na szybko fantom, który nazwaliśmy Torcikiem.<br>
+**12 + Enter**
 
 ---
 
 ## .warn[Po więcej informacji]
 
-### dodatkowe slajdy, policzone objętości dla kilkunastu pacjentów
+### (policzone objętości dla kilkunastu pacjentów, dodatkowe slajdy)
 
-### .warn[zapraszamy do przejrzenia repozytorium:]
+### .warn[zapraszamy do repozytorium:]
 
 ### https://github.com/thigh2019/pltr
+
+----
+
+# Dziękuję za uwagę!
 
 ---
 
@@ -255,14 +264,15 @@ Protokół badania.
 
 ### Przygotowanie fantomu to bułka z masłem… (?)
 
-Nasz pierwszy, przygotowany na szybko fantom<br>
-(filp-angle, α=10°) miał zweryfikować dokładność algorytmu.
+Miał potwierdzić słuszność naszego podejścia do obliczania tłuszczu.
 
 W fantomie było 200 cm<sup>3</sup> tłuszczu (gęsiego, odmierzonego strzykawką)
 i podobna objętość mięśni (z uda jelenia).
 
 Policzona przez program objętość tłuszczu w tłuszczu, **panel C**,
-to 202.8 cm<sup>3</sup>. Wielkość błędu, **1.4%**, zrobiła na nas duże wrażenie.
+to 202.8 cm<sup>3</sup>.
+
+Tak mały błąd – **1.4%** – zrobił na nas duże wrażenie.
 
 ---
 
