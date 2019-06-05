@@ -128,10 +128,10 @@ Im mniejszy kąt (5-10 stopni), tym lepsze przybliżenie.
 ### Dane / Program
 
 Danymi do naszego programu są obrazy 3D:<br>
-in-phase, water, fat i warstwy (plastry) w których
-będziemy liczyć tłuszcz.
+in-phase, water, fat i warstwy (plastry), w których
+będziemy liczyć tłuszcz (ROI).
 
-FYI, każdy z obrazów 3D powstał z ok. 10 milionów wokseli / kostek,
+Każdy z obrazów 3D powstał z ok. 10 milionów wokseli (kostek),
 a obraz nogi z 1–2 mln wokseli.
 
 Po prawej stronie, pod napisem .def[Program],
@@ -149,16 +149,16 @@ W mięśniach tłuszczu jest mało i dlatego mało co widać.
 
 ### Tłuszcz na obrazach in-phase i fat-fraction
 
-.def[A free lunch is only found in mousetraps] -<br>
-czyli po polsku w życiu nie ma nic za darmo.
+Anglicy mówią, .def[a free lunch is only found in mousetraps].<br>
+Po polsku mówimy, że w życiu nie ma nic za darmo.
 
-Niestety, tło obrazu fat-fraction (powietrze + stół),
+Jak widać, tło obrazu fat-fraction, czyli powietrze plus stół,
 zawiera **fałszywy** tłuszcz.
-Powstaje on w wyniku dzielenia szumu przez szum (0 przez 0).
+Powstaje on w wyniku dzielenia szumu przez szum (dzielenia małych liczb).
+Mamy więcej pracy, bo cały fałszywy tłuszcz należy usunąć już teraz.
 
-Oczywiście fałszywy tłuszcz musi zostać usunięty
-i przy okazji usuwamy przeciętą wzdłuż nogę.
-Na kolejnych obrazach wygumkowano tło i nogę na .background[żółto].
+Przy okazji usuwamy też częściowo widoczną, przeciętą wzdłuż nogę.
+Na kolejnych obrazach tło i nogę wygumkowano na .background[żółto].
 
 ---
 
@@ -171,9 +171,8 @@ Na kolejnych obrazach wygumkowano tło i nogę na .background[żółto].
 
 ### Tłuszcz na obrazach in-phase i fat-fraction bez tła
 
-Do zamalowania wokseli w tle wykorzystano
-.solid[morphological processing]. Konkretnie operacje: wymazywanie – .def[erode]
-i *dodawania* wokseli – .def[dilate].
+Do zamalowania wokseli w tle wykorzystano .solid[morphological processing].
+Konkretnie operacje: wymazywania – .def[erode] i *dodawania* wokseli – .def[dilate].
 
 Na przykład, skórę usunięto za pomocą erode.
 
@@ -188,10 +187,8 @@ Na przykład, skórę usunięto za pomocą erode.
 
 ### Mięśnie na obrazach in-phase i fat-fraction bez tła
 
-Teraz przyszedł czas na wycięcie obszaru z mięśniami i
-obszaru zajmowanego przez **kość udową**, która zawiera tłuszcz.
-
-Musimy to zrobić **precyzyjnie** i **powtarzalnie**.
+Teraz przyszedł czas na wycięcie interesującego nas obszaru z mięśni.
+Wycinamy też **kość udową**, która zawiera tłuszcz.
 
 ---
 
@@ -203,20 +200,21 @@ Musimy to zrobić **precyzyjnie** i **powtarzalnie**.
 
 ### 1 warstwa z mięśniami z wyciętą kością udową
 
-Na koniec, w **interesującym nas obszarze** (ROI),
+Na koniec, w **interesującym nas obszarze**,
 sumujemy objętości wokseli i udziały tłuszczu w każdym wokselu.
 
-Na slajdzie interesujący nas obszar, to pojedyncza warstwa.
+Na slajdzie interesujący nas obszar, to jedna warstwa,
+lub wedlug mojej 3 letniej wnuczki .def[**stopy słonia**].
 Wyniki są w podpisach pod obrazkami.
 
 W literature do metody Dixona, napisano, że dla małych flip angle
-(kilka stopni) i ilości tłuszczu (do kilkunastu procent)
+(kilka stopni) i ilości tłuszczu do kilkunastu procent(?)
 dokładność powinna wynosić ** ok. 1%**.
 
 Aktualnie, jesteśmy w trakcie przygotowywania fantomów,
 których użyjemy do potwierdzenia tych rezulatów.
 
-**Nasz pierwszy fantom: 12 + Enter**.
+**„Torcik” – nasz pierwszy fantom: 12 + Enter**.
 
 ---
 
@@ -249,7 +247,7 @@ Protokół badania.
 
 ---
 
-### True Fat Fraction .def[≈] Fat Fraction w obrazie fat-fraction fantomu F1
+### Pierwszy fantom, „Torcik”
 
 <img src=images/fantom_f1_3d.png width=600>
 
