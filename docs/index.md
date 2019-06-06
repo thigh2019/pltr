@@ -4,6 +4,13 @@
 
 ## Gdańsk, 6–8 czerwca 2019
 
+???
+
+Dzień dobry!
+
+Wspólnie z Agnieszką, Piotrem, Arkadiuszem i Beatą tworzymy program
+do oznaczania zawartości tłuszczu wewnątrzmięśniowego z obrazów Dixona.
+
 ---
 
 ## .def[Monitorowanie .solid[zmian] zawartości tłuszczu]
@@ -20,16 +27,52 @@
 * .important[precyzyjnego oznaczania] zawartości
   tłuszczu wewnątrzmięśniowego (.part[moduł 2])
 
+???
+
+**Naszym celem** jest napisanie programu obliczającego zawartość
+tłuszczu z dokładnością **±1%**.
+Z literatury wynika, że taka dokładność jest możliwa do osiągnięcia.
+
+Taka dokładność powinna umożliwić monitorowanie **zmian**
+tłuszczu w trakcie ćwiczeń lub w rozwoju choroby.
+
+----
+
+Nasz program składa się z dwóch modułów.
+
+.def[Pierwszy moduł] został napisany **pod dane**: obrazy MR nóg.
+Napisanie tego modułu wymagało **pomysłowości**, a także trochę **szczęścia**.
+Udało się zaadaptować do naszych celów funkcje z pakietu
+*Advanced Normalization Tools for R*.
+
+.def[Moduł drugi] korzysta z **metody Dixona**.
+
+----
+
+Literatura:
+
+Hines et al.
+[Optimization of Flip Angle to Allow Tradeoffs in T1 Bias and SNR Performance for Fat Quantification](https://cds.ismrm.org/protected/10MProceedings/files/2927_3564.pdf)
+
+> zob. Figure 1.
+
+Hu, Li et al.
+[Quantification of Absolute Fat Mass by Magnetic Resonance Imaging: a Validation Study against Chemical Analysis](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3509746/)
+
+> A PDFF error of less than 1% is introduced when
+> the true fat fraction is between 0 and 20% and
+> an error of only 2–3% was observed for true fat fractions
+> between 30 and 50% at 1.5 and 3 Tesla field strengths.
+
 ---
 
 ## [Dlaczego obrazy Dixona?](http://mriquestions.com/uploads/3/4/5/7/34572113/dixon_method_1984_radiology.pdf)
 
-### 4 obrazy: in-phase, out-phase, water (.def[W]), fat (.def[F]).
+### 4 obrazy MR: in-phase, out-phase, water (.def[W]), fat (.def[F]).
 
 Intensywność sygnału w obrazach .def[W] i .def[F]
 reprezentuje gęstości protonów pochodzących od
-–CH<sub>2</sub>– i –CH<sub>3</sub>,
-odpowiednio.
+–CH<sub>2</sub>– i –CH<sub>3</sub>, odpowiednio.
 
 <div class="pseudomath">
   <span class=def>signal fat-fraction</span>
@@ -48,12 +91,49 @@ odpowiednio.
 
 (dla małego *flip angle*)
 
+???
+
+### Dlaczego obrazy Dixona?
+
+Używamy obrazów Dixona, bo metoda Dixona nie wyklucza
+możliwości napisania takiego programu.
+
+Z obrazów W i F można utworzyć obraz .def[signal fat-fraction],
+licząc, dla każdego woksela osobno, udział sygnału pochodzącego
+od „tłuszczu” do całkowitej intensywności sygnału.
+
+Z przybliżenia w ramce wynika, że ułamek **signal fat-fraction**
+przybliża prawdziwą proporcję tłuszczu w wokselu,
+zdefiniowane w spectroskopii/spektrometrii
+jako **proton density fat fraction** (PDFF).
+
+Dokładność przybliżenia zależy od .def[α] flip angle.
+Im mniejszy kąt (5-10 stopni), tym lepsze przybliżenie.
+
 ---
 
 ## .def[Dane:] obrazy Dixona, wybrane warstwy <span class="whitespace-left def">Program</span>
 
 <img style="margin-left:-1em;" src=images/in_phase_slab.png height=500 alt="">
 <img style="margin-left:4em;" src=images/fat_fraction_in_muscle_slab.png height=500 alt="">
+
+???
+
+### Dane / Program
+
+Danymi do naszego programu są obrazy 3D pacjentów z urazami kolana w trakcie rehabilitacji.
+
+Konkretnie, program korzysta z obrazów:
+in-phase, water, fat oraz warstw (plastróW, **ROI**), w których
+będziemy liczyć tłuszcz.
+
+Po lewej stronie widzimy obraz in-phase z zaznaczonymi na czerwono warstwami w których chcemy policzyć tłuszcz.
+Każdy z obrazów 3D powstał z ok. 10 milionów wokseli (kostek),
+a obraz nogi z 1–2 mln wokseli.
+
+Po prawej stronie, pod napisem .def[Program],
+widzimy obszar mięśni **w obrazie fat-fraction**.
+W mięśniach tłuszczu jest mało i dlatego mało co widać.
 
 ---
 
@@ -62,12 +142,37 @@ odpowiednio.
 <img src=images/in_phase.png width=350>
 <img style="margin-left:1em;" src=images/fat_fraction.png width=350>
 
+???
+
+### Tłuszcz na obrazach in-phase i fat-fraction
+
+Anglicy mówią, .def[a free lunch is only found in mousetraps].<br>
+Po polsku mówimy, że w życiu nie ma nic za darmo.
+
+Jak widać, tło obrazu fat-fraction, czyli powietrze plus stół,
+zawiera **fałszywy** tłuszcz.
+Powstaje on w wyniku dzielenia szumu przez szum. Dlatego już
+na początku mamy więcej pracy, bo cały fałszywy tłuszcz
+należy usunąć na tym etapie.
+
+Przy okazji usuwamy też częściowo widoczną, przeciętą wzdłuż nogę.
+Na kolejnych obrazach tło i nogę wygumkowano na .background[żółto].
+
 ---
 
 ## Tłuszcz na obrazach in-phase i fat-fraction bez tła
 
 <img src=images/in_phase_without_background.png width=350>
 <img style="margin-left:1em;" src=images/fat_fraction_without_background.png width=350>
+
+???
+
+### Tłuszcz na obrazach in-phase i fat-fraction bez tła
+
+Do zamalowania wokseli w tle wykorzystano .solid[morphological processing].
+Konkretnie operacje: wymazywania – .def[erode] i *dodawania* wokseli – .def[dilate].
+
+Na przykład, skórę usunięto za pomocą erode.
 
 ---
 
@@ -76,11 +181,50 @@ odpowiednio.
 <img src=images/muscle_in_in_phase_without_background.png width=350>
 <img style="margin-left:1em;" src=images/fat_fraction_in_muscle_without_background.png width=350>
 
+???
+
+### Mięśnie na obrazach in-phase i fat-fraction bez tła
+
+Teraz przyszedł czas na wycięcie interesującego nas obszaru z mięśni.
+Wycinamy też **kość udową**, która zawiera tłuszcz.
+
 ---
 
-## 1 warstwa z mięśniami z wyciętą kością udową
+## 1 warstwa z mięśniami z wyciętą kością udową – 8%
 
 <img style="margin-left:-1.25em;" src=images/intramuscular_fat_2d.png width=800>
+
+???
+
+### 1 warstwa z mięśniami z wyciętą kością udową
+
+Na koniec, w **interesującym nas obszarze**,
+sumujemy objętości wokseli i udziały tłuszczu w każdym wokselu.
+
+Na slajdzie interesujący nas obszar, to jedna warstwa,
+lub wedlug mojej 3 letniej wnuczki .def[**stopa słonia**].
+Wyniki są w podpisach pod obrazkami.
+
+W literaturze do metody Dixona, napisano, że dla małego flip angle
+(kilka stopni) i ilości tłuszczu do kilkunastu procent(?)
+dokładność powinna wynosić **ok. 1%**.
+
+Aktualnie, jesteśmy w trakcie przygotowywania fantomów,
+których użyjemy do potwierdzenia tych rezulatów.
+
+---
+
+## .warn[Po więcej informacji]
+
+### (policzone objętości dla kilkunastu pacjentów, dodatkowe slajdy)
+
+### .warn[zapraszamy do repozytorium:]
+
+### https://github.com/thigh2019/pltr
+
+----
+
+# Dziękuję za uwagę!
 
 ---
 
@@ -103,9 +247,28 @@ Protokół badania.
 
 ---
 
-### True Fat Fraction .def[≈] Fat Fraction w obrazie fat-fraction fantomu F1
+### Nasz pierwszy fantom
 
 <img src=images/fantom_f1_3d.png width=600>
+
+???
+
+### Przygotowanie fantomu to bułka z masłem… (?)
+
+Nasz pierwszy, przygotowany na szybko fantom
+miał potwierdzić słuszność naszego podejścia do obliczania
+objętości **tłuszczu w tłuszczu**.
+
+W fantomie było 200 cm<sup>3</sup> tłuszczu
+(gęsiego, odmierzonego strzykawką)
+i podobna objętość mięśni (z uda jelenia).
+
+Policzona przez program objętość tłuszczu w tłuszczu,
+**panel C**, to 202.8 cm<sup>3</sup>.
+
+Tak mały błąd, w liczniu objętości –
+2.8<sup>3</sup>, czyli **1.4%** –
+zrobił na nas duże wrażenie i dał motywację do dalszej pracy.
 
 ---
 
