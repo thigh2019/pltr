@@ -5,3 +5,13 @@ Program do automatycznej segmentacji mięśni uda i wyliczenia zawartości tłus
 Program for Automatic Segmentation of Thigh Muscles and Calculation of Intramuscular Fat content Based on the DIXON Sequence
 
 Agnieszka Sabisz, Włodzimierz Bzyl, Piotr Arłukowicz, Beata Brzeska, Arkadiusz Szarmach
+
+
+### Uruchamianie slajdów lokalnie
+
+```sh
+cd docs
+npm install -g npx
+npm install
+npx serve
+```
