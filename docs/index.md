@@ -112,7 +112,7 @@ Im mniejszy kąt (5-10 stopni), tym lepsze przybliżenie.
 
 ---
 
-## .def[Dane:] obrazy Dixona, wybrane warstwy <span class="whitespace-left def">Program</span>
+## .def[Dane:] obrazy Dixona, ROI <span class="whitespace-left def">Program</span>
 
 <img style="margin-left:-1em;" src=images/in_phase_slab.png height=500 alt="">
 <img style="margin-left:4em;" src=images/fat_fraction_in_muscle_slab.png height=500 alt="">
